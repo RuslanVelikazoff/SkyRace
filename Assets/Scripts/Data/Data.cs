@@ -137,7 +137,21 @@ public class Data : MonoBehaviour
             }
         }
     }
-    
+
+    public int GetSelectedAirplaneIndex()
+    {
+        for (int i = 0; i < _selectedAirplanes.Length; i++)
+        {
+            if (IsSelectedAirplane(i))
+            {
+                return i;
+                break;
+            }
+        }
+
+        return 0;
+    }
+
     #endregion
 
     #region Upgrades

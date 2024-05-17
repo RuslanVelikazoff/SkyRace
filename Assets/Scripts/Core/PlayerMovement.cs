@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -5,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] 
     private Rigidbody2D rigidbody;
     
+    [SerializeField]
     private float speed = 3f;
     
     private bool isMove;
@@ -36,6 +38,27 @@ public class PlayerMovement : MonoBehaviour
                 rigidbody.velocity = new Vector2(Input.acceleration.x * speed, 0);
             }
         }
+    }
+
+    public void SetSpeed(float speed)
+    {
+        this.speed = speed;
+    }
+
+    public void ActivateBoostSpeed()
+    {
+        StartCoroutine(BoostSpeedCO());
+    }
+
+    private IEnumerator BoostSpeedCO()
+    {
+        float currentSpeed = speed;
+        speed += 2f;
+
+        yield return new WaitForSeconds(3f);
+
+        speed = currentSpeed;
+
     }
 
     #region ButtonsAction

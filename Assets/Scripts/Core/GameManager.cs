@@ -5,6 +5,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     [SerializeField] 
+    private PlayerMovement playerMovement;
+    [SerializeField] 
     private EndRacePanel endRacePanel;
 
     private void Awake()
@@ -12,7 +14,12 @@ public class GameManager : MonoBehaviour
         Instance = this;
         Time.timeScale = 1;
     }
-    
+
+    public void BoostSpeed()
+    {
+        playerMovement.ActivateBoostSpeed();
+    }
+
     public void WinGame()
     {
         Time.timeScale = 0;
