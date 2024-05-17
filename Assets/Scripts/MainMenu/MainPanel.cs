@@ -13,7 +13,7 @@ public class MainPanel : MonoBehaviour
     private Button exitButton;
 
     [SerializeField] 
-    private GameObject startPanel;
+    private GameObject planeSelectionPanel;
     [SerializeField] 
     private GameObject settingsPanel;
     [SerializeField] 
@@ -33,7 +33,7 @@ public class MainPanel : MonoBehaviour
             {
                 AudioManager.Instance.Play("Click");
                 this.gameObject.SetActive(false);
-                startPanel.SetActive(true);
+                planeSelectionPanel.SetActive(true);
             });
         }
 

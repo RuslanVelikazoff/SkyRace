@@ -45,7 +45,7 @@ public class LevelBackground : MonoBehaviour
         }
     }
 
-    private bool IsAzureSelected()
+    public bool IsAzureSelected()
     {
         if (PlayerPrefs.GetString(PLAYER_PREFS_BACKGROUND) == PLAYER_PREFS_AZURE)
         {
@@ -57,7 +57,7 @@ public class LevelBackground : MonoBehaviour
         }
     }
     
-    private bool IsVioletSelected()
+    public bool IsVioletSelected()
     {
         if (PlayerPrefs.GetString(PLAYER_PREFS_BACKGROUND) == PLAYER_PREFS_VIOLET)
         {
@@ -69,7 +69,7 @@ public class LevelBackground : MonoBehaviour
         }
     }
     
-    private bool IsCrimsonSelected()
+    public bool IsCrimsonSelected()
     {
         if (PlayerPrefs.GetString(PLAYER_PREFS_BACKGROUND) == PLAYER_PREFS_CRIMSON)
         {

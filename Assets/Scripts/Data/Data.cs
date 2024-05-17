@@ -10,6 +10,8 @@ public class Data : MonoBehaviour
     private bool[] _purchasedAirplanes;
     
     private bool[] _purchasedUpgrades;
+
+    private bool[] _difficulty;
     
     public int _coin;
 
@@ -58,6 +60,7 @@ public class Data : MonoBehaviour
         _selectedAirplanes = data.selectedAirplanes;
         _purchasedAirplanes = data.purchasedAirplanes;
         _purchasedUpgrades = data.purchasedUpgrades;
+        _difficulty = data.difficulty;
         
         Debug.Log("Data load");
     }
@@ -77,7 +80,8 @@ public class Data : MonoBehaviour
             coin = _coin,
             selectedAirplanes = _selectedAirplanes,
             purchasedAirplanes = _purchasedAirplanes,
-            purchasedUpgrades = _purchasedUpgrades
+            purchasedUpgrades = _purchasedUpgrades,
+            difficulty = _difficulty
         };
 
         return data;
@@ -88,9 +92,16 @@ public class Data : MonoBehaviour
         return _coin;
     }
 
+    #region Airplanes
+    
     public bool IsPurchasedAirplane(int index)
     {
         return _purchasedAirplanes[index];
+    }
+
+    public bool IsSelectedAirplane(int index)
+    {
+        return _selectedAirplanes[index];
     }
 
     public void BuyAirplane(int index, int price)
@@ -103,6 +114,28 @@ public class Data : MonoBehaviour
         }
     }
 
+    public void SelectAirplane(int index)
+    {
+        if (IsPurchasedAirplane(index))
+        {
+            for (int i = 0; i < _selectedAirplanes.Length; i++)
+            {
+                if (i == index)
+                {
+                    _selectedAirplanes[i] = true;
+                }
+                else
+                {
+                    _selectedAirplanes[i] = false;
+                }
+            }
+        }
+    }
+    
+    #endregion
+
+    #region Upgrades
+    
     public bool IsPurchasedUpgrade(int index)
     {
         return _purchasedUpgrades[index];
@@ -117,4 +150,39 @@ public class Data : MonoBehaviour
             Save();
         }
     }
+    
+    #endregion
+
+    #region Difficulty
+    
+    public void SelectDifficulty(int index)
+    {
+        for (int i = 0; i < _difficulty.Length; i++)
+        {
+            if (i == index)
+            {
+                _difficulty[i] = true;
+            }
+            else
+            {
+                _difficulty[i] = false;
+            }
+        }
+    }
+
+    public int GetDifficultyIndex()
+    {
+        for (int i = 0; i < _difficulty.Length; i++)
+        {
+            if (_difficulty[i])
+            {
+                return i;
+                break;
+            }
+        }
+
+        return 0;
+    }
+
+    #endregion
 }

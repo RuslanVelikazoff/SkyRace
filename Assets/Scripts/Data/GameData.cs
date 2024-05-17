@@ -5,6 +5,8 @@ public class GameData
     public bool[] purchasedAirplanes = new bool[3];
 
     public bool[] purchasedUpgrades = new bool[3];
+
+    public bool[] difficulty = new bool[3];
     
     public int coin;
 
@@ -23,5 +25,9 @@ public class GameData
         purchasedUpgrades[0] = false;
         purchasedUpgrades[1] = false;
         purchasedUpgrades[2] = false;
+
+        difficulty[0] = true;
+        difficulty[1] = false;
+        difficulty[2] = false;
     }
 }

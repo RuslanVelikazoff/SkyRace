@@ -11,14 +11,14 @@ public class LoaderCallback : MonoBehaviour
 
     private void Awake()
     {
-        Time.timeScale = 1f;
+        Time.timeScale = 1;
     }
 
     private void Update()
     {
         if (timeLeft < timeDownload)
         {
-            timeLeft -= Time.deltaTime;
+            timeLeft += Time.deltaTime;
             downloadSlider.value = timeLeft;
         }
         else
