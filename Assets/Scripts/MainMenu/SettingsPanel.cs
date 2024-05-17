@@ -9,11 +9,19 @@ public class SettingsPanel : MonoBehaviour
     private Button soundButton;
     [SerializeField] 
     private Button musicButton;
+    [SerializeField]
+    private Button classicControlButton;
+    [SerializeField] 
+    private Button expertControlButton;
 
     [SerializeField] 
     private Sprite onSprite;
     [SerializeField] 
     private Sprite offSprite;
+    [SerializeField] 
+    private Sprite activeSprite;
+    [SerializeField]
+    private Sprite inactiveSprite;
 
     [SerializeField] 
     private GameObject mainPanel;
@@ -29,6 +37,7 @@ public class SettingsPanel : MonoBehaviour
     {
         SetMusicButtonSprite();
         SetSoundButtonSprite();
+        SetControlButtonSprite();
     }
 
     private void ButtonClickAction()
@@ -83,6 +92,28 @@ public class SettingsPanel : MonoBehaviour
                 SetMusicButtonSprite();
             });
         }
+
+        if (classicControlButton != null)
+        {
+            classicControlButton.onClick.RemoveAllListeners();
+            classicControlButton.onClick.AddListener(() =>
+            {
+                AudioManager.Instance.Play("Click");
+                ControlManager.Instance.SetClassicControl();
+                SetControlButtonSprite();
+            });
+        }
+
+        if (expertControlButton != null)
+        {
+            expertControlButton.onClick.RemoveAllListeners();
+            expertControlButton.onClick.AddListener(() =>
+            {
+                AudioManager.Instance.Play("Click");
+                ControlManager.Instance.SetExpertControl();
+                SetControlButtonSprite();
+            });
+        }
     }
 
     private void SetMusicButtonSprite()
@@ -106,6 +137,21 @@ public class SettingsPanel : MonoBehaviour
         else
         {
             soundButton.GetComponent<Image>().sprite = offSprite;
+        }
+    }
+
+    private void SetControlButtonSprite()
+    {
+        if (ControlManager.Instance.IsClassicControl())
+        {
+            classicControlButton.GetComponent<Image>().sprite = activeSprite;
+            expertControlButton.GetComponent<Image>().sprite = inactiveSprite;
+        }
+
+        if (ControlManager.Instance.IsExpertControl())
+        {
+            classicControlButton.GetComponent<Image>().sprite = inactiveSprite;
+            expertControlButton.GetComponent<Image>().sprite = activeSprite;
         }
     }
 }

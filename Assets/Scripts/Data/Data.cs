@@ -6,7 +6,12 @@ public class Data : MonoBehaviour
 
     private const string saveKey = "MainSave";
 
-    private int _coin;
+    private bool[] _selectedAirplanes;
+    private bool[] _purchasedAirplanes;
+    
+    private bool[] _purchasedUpgrades;
+    
+    public int _coin;
 
     private void Awake()
     {
@@ -50,6 +55,9 @@ public class Data : MonoBehaviour
         var data = SaveManager.Load<GameData>(saveKey);
 
         _coin = data.coin;
+        _selectedAirplanes = data.selectedAirplanes;
+        _purchasedAirplanes = data.purchasedAirplanes;
+        _purchasedUpgrades = data.purchasedUpgrades;
         
         Debug.Log("Data load");
     }
@@ -66,9 +74,47 @@ public class Data : MonoBehaviour
     {
         var data = new GameData()
         {
-            coin = _coin
+            coin = _coin,
+            selectedAirplanes = _selectedAirplanes,
+            purchasedAirplanes = _purchasedAirplanes,
+            purchasedUpgrades = _purchasedUpgrades
         };
 
         return data;
+    }
+
+    public int GetCoinAmount()
+    {
+        return _coin;
+    }
+
+    public bool IsPurchasedAirplane(int index)
+    {
+        return _purchasedAirplanes[index];
+    }
+
+    public void BuyAirplane(int index, int price)
+    {
+        if (_coin > price)
+        {
+            _coin -= price;
+            _purchasedAirplanes[index] = true;
+            Save();
+        }
+    }
+
+    public bool IsPurchasedUpgrade(int index)
+    {
+        return _purchasedUpgrades[index];
+    }
+
+    public void BuyUpgrade(int index, int price)
+    {
+        if (_coin > price)
+        {
+            _coin -= price;
+            _purchasedUpgrades[index] = true;
+            Save();
+        }
     }
 }
