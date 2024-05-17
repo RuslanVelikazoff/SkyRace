@@ -44,4 +44,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee8644673b09fe4da7b54ed3a6b79fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
+  sounds:
+  - name: Theme
+    clip: {fileID: 8300000, guid: 35e19533fba93b7458a58474893fecb7, type: 3}
+    loop: 1
+    volume: 0
+    pitch: 0
+    source: {fileID: 0}
+  - name: Click
+    clip: {fileID: 8300000, guid: 404eea9148317c94b9f199bd4a681831, type: 3}
+    loop: 0
+    volume: 0
+    pitch: 0
+    source: {fileID: 0}
+  - name: BuySound
+    clip: {fileID: 8300000, guid: 3a6a551360f4ce548b61ef2746e51790, type: 3}
+    loop: 0
+    volume: 0
+    pitch: 0
+    source: {fileID: 0}
+  - name: Select
+    clip: {fileID: 8300000, guid: a6d3aeb944f40d240b29b4521fd66981, type: 3}
+    loop: 0
+    volume: 0
+    pitch: 0
+    source: {fileID: 0}

@@ -92,6 +92,12 @@ public class Data : MonoBehaviour
         return _coin;
     }
 
+    public void AddCoin(int collectedCoin)
+    {
+        _coin += collectedCoin;
+        Save();
+    }
+
     #region Airplanes
     
     public bool IsPurchasedAirplane(int index)
