@@ -44,7 +44,10 @@ public class GetData : MonoBehaviour
     private float speed;
     private float walkingSpeed;
 
+    private float enemySpeed;
     private float enemyWalkingSpeed;
+
+    private float templateSpeed;
 
     private IEnumerator Start()
     {
@@ -56,14 +59,15 @@ public class GetData : MonoBehaviour
         SetAirplaneDefaultSpeed();
         SetUpgrades();
         SetDistanceBarSpeed();
+        SetTemplateSpeed();
 
         yield return new WaitForSeconds(.2f);
         playerMovement.SetSpeed(speed);
         playerMovement.SetWalkingSpeed(walkingSpeed);
-        enemyMovement.SetEnemyWalkingSpeed(enemyWalkingSpeed);
+        enemyMovement.SetEnemyWalkingSpeed(enemySpeed, enemyWalkingSpeed);
+        TemplateSpawner.Instance.SetTemplateSpeed(templateSpeed);
+        TemplateSpawner.Instance.SpawnTemplate();
         loadPanel.SetActive(false);
-        //Spawn first obstacle
-        Debug.Log(speed);
     }
 
     private void SetAirplane()
@@ -199,14 +203,22 @@ public class GetData : MonoBehaviour
         switch (Data.Instance.GetDifficultyIndex())
         {
             case 0:
+                enemySpeed = easyEnemySpeed;
                 enemyWalkingSpeed = easyEnemySpeed / 100f;
                 break;
             case 1:
+                enemySpeed = mediumEnemySpeed;
                 enemyWalkingSpeed = mediumEnemySpeed / 100f;
                 break;
             case 2:
+                enemySpeed = hardEnemySpeed;
                 enemyWalkingSpeed = hardEnemySpeed / 100f;
                 break;
         }
+    }
+
+    private void SetTemplateSpeed()
+    {
+        templateSpeed = speed / 2f;
     }
 }

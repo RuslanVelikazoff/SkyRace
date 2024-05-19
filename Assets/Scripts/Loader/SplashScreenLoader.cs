@@ -1,10 +1,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SplashScreenLoader : MonoBehaviour
 {
     private float timeDownload = 2f;
     private float timeLeft;
+
+    [SerializeField] private Slider loaderSlider;
 
     public bool load = true; //for webview
 
@@ -15,11 +18,12 @@ public class SplashScreenLoader : MonoBehaviour
             if (timeLeft < timeDownload)
             {
                 timeLeft += Time.deltaTime;
+                loaderSlider.value = timeLeft;
             }
             else
             {
                 Screen.orientation = ScreenOrientation.LandscapeRight;
-                SceneManager.LoadScene("Menu");
+                SceneManager.LoadScene("MainMenuScene");
             }
         }
     }

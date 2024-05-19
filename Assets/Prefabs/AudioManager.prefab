@@ -69,3 +69,15 @@ MonoBehaviour:
     volume: 0
     pitch: 0
     source: {fileID: 0}
+  - name: Win
+    clip: {fileID: 8300000, guid: deea59901b04caf4e95dd12b11143b66, type: 3}
+    loop: 0
+    volume: 0
+    pitch: 0
+    source: {fileID: 0}
+  - name: Lose
+    clip: {fileID: 8300000, guid: 8c19bf74a5c42fc46849cdb7d39c2f36, type: 3}
+    loop: 0
+    volume: 0
+    pitch: 0
+    source: {fileID: 0}

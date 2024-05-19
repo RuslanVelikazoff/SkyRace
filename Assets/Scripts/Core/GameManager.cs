@@ -22,12 +22,14 @@ public class GameManager : MonoBehaviour
 
     public void WinGame()
     {
+        AudioManager.Instance.Play("Win");
         Time.timeScale = 0;
         endRacePanel.OpenPanel(1);
     }
 
     public void LoseGame()
     {
+        AudioManager.Instance.Play("Lose");
         Time.timeScale = 0;
         endRacePanel.OpenPanel(2);
     }
