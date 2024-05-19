@@ -1,17 +1,30 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class GetData : MonoBehaviour
 {
     [SerializeField]
     private PlayerMovement playerMovement;
-    
     [SerializeField] 
-    private GameObject[] airplaneSprite;
+    private EnemyMovement enemyMovement;
 
     [SerializeField] 
-    private GameObject[] enemySprite;
+    private GameObject[] playerGameObjects;
+
+    [SerializeField] 
+    private GameObject[] enemyGameObjects;
+
+    [SerializeField] 
+    private Image playerDistanceBarImage;
+    [SerializeField]
+    private Sprite[] playerSprites;
+
+    [SerializeField] 
+    private Image enemyDistanceBarImage;
+    [SerializeField] 
+    private Sprite[] enemySprites;
     
     [SerializeField] 
     private GameObject loadPanel;
@@ -24,21 +37,33 @@ public class GetData : MonoBehaviour
     private float upgradeProcent2 = 27;
     private float upgradeProcent3 = 10;
 
+    private float easyEnemySpeed = 4.4f;
+    private float mediumEnemySpeed = 7.4f;
+    private float hardEnemySpeed = 10.4f;
+
     private float speed;
+    private float walkingSpeed;
+
+    private float enemyWalkingSpeed;
 
     private IEnumerator Start()
     {
         yield return new WaitForSeconds(.1f);
         
         SetEnemy();
+        SetEnemyWalkingSpeed();
         SetAirplane();
         SetAirplaneDefaultSpeed();
         SetUpgrades();
+        SetDistanceBarSpeed();
 
         yield return new WaitForSeconds(.2f);
         playerMovement.SetSpeed(speed);
+        playerMovement.SetWalkingSpeed(walkingSpeed);
+        enemyMovement.SetEnemyWalkingSpeed(enemyWalkingSpeed);
         loadPanel.SetActive(false);
         //Spawn first obstacle
+        Debug.Log(speed);
     }
 
     private void SetAirplane()
@@ -46,19 +71,22 @@ public class GetData : MonoBehaviour
         switch (Data.Instance.GetSelectedAirplaneIndex())
         {
             case 0:
-                airplaneSprite[0].SetActive(true);
-                airplaneSprite[1].SetActive(false);
-                airplaneSprite[2].SetActive(false);
+                playerGameObjects[0].SetActive(true);
+                playerGameObjects[1].SetActive(false);
+                playerGameObjects[2].SetActive(false);
+                playerDistanceBarImage.sprite = playerSprites[0];
                 break;
             case 1:
-                airplaneSprite[0].SetActive(false);
-                airplaneSprite[1].SetActive(true);
-                airplaneSprite[2].SetActive(false);
+                playerGameObjects[0].SetActive(false);
+                playerGameObjects[1].SetActive(true);
+                playerGameObjects[2].SetActive(false);
+                playerDistanceBarImage.sprite = playerSprites[1];
                 break;
             case 2:
-                airplaneSprite[0].SetActive(false);
-                airplaneSprite[1].SetActive(false);
-                airplaneSprite[2].SetActive(true);
+                playerGameObjects[0].SetActive(false);
+                playerGameObjects[1].SetActive(false);
+                playerGameObjects[2].SetActive(true);
+                playerDistanceBarImage.sprite = playerSprites[2];
                 break;
         }
     }
@@ -137,6 +165,11 @@ public class GetData : MonoBehaviour
         }
     }
 
+    private void SetDistanceBarSpeed()
+    {
+        walkingSpeed = speed / 100f;
+    }
+
     private void SetEnemy()
     {
         int randomEnemy = Random.Range(0, 2);
@@ -144,16 +177,35 @@ public class GetData : MonoBehaviour
         switch (randomEnemy)
         {
             case 0:
-                enemySprite[0].SetActive(true);
-                enemySprite[1].SetActive(false);
+                enemyGameObjects[0].SetActive(true);
+                enemyGameObjects[1].SetActive(false);
+                enemyDistanceBarImage.sprite = enemySprites[0];
                 break;
             case 1:
-                enemySprite[0].SetActive(false);
-                enemySprite[1].SetActive(true);
+                enemyGameObjects[0].SetActive(false);
+                enemyGameObjects[1].SetActive(true);
+                enemyDistanceBarImage.sprite = enemySprites[1];
                 break;
             case 2:
-                enemySprite[0].SetActive(true);
-                enemySprite[1].SetActive(false);
+                enemyGameObjects[0].SetActive(true);
+                enemyGameObjects[1].SetActive(false);
+                enemyDistanceBarImage.sprite = enemySprites[0];
+                break;
+        }
+    }
+
+    private void SetEnemyWalkingSpeed()
+    {
+        switch (Data.Instance.GetDifficultyIndex())
+        {
+            case 0:
+                enemyWalkingSpeed = easyEnemySpeed / 100f;
+                break;
+            case 1:
+                enemyWalkingSpeed = mediumEnemySpeed / 100f;
+                break;
+            case 2:
+                enemyWalkingSpeed = hardEnemySpeed / 100f;
                 break;
         }
     }

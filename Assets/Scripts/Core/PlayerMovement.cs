@@ -7,11 +7,19 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rigidbody;
     
     [SerializeField]
-    private float speed = 3f;
+    private float speed;
+
+    [SerializeField] 
+    private float currentDistance;
+    private float walkingSpeed;
+    private float maxWalkingDistance = 800f;
     
     private bool isMove;
 
     private Vector2 moveDirection;
+
+    [SerializeField] 
+    private DistanceBar distanceBar;
 
     private void FixedUpdate()
     {
@@ -38,11 +46,24 @@ public class PlayerMovement : MonoBehaviour
                 rigidbody.velocity = new Vector2(Input.acceleration.x * speed, 0);
             }
         }
+
+        currentDistance += walkingSpeed;
+        distanceBar.SetWalkingDistance(walkingSpeed);
+
+        if (currentDistance >= maxWalkingDistance)
+        {
+            GameManager.Instance.WinGame();
+        }
     }
 
     public void SetSpeed(float speed)
     {
         this.speed = speed;
+    }
+
+    public void SetWalkingSpeed(float walkingSpeed)
+    {
+        this.walkingSpeed = walkingSpeed;
     }
 
     public void ActivateBoostSpeed()
